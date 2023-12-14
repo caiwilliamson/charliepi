@@ -1,4 +1,4 @@
-# Charlie Pi Web 🐈‍⬛🏠📊
+# Charlie Pi Web 🐈‍⬛
 
 Web dashboard for Charlie Pi
 
