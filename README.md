@@ -6,7 +6,6 @@ Web dashboard for Charlie Pi
 With [pipenv][pipenv]:
 ```
 pipenv install --site-packages
-
 ```
 
 ### Run
