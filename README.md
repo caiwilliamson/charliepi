@@ -3,14 +3,15 @@
 Web dashboard for Charlie Pi
 
 ### Install
-With [poetry][poetry]:
+With [pipenv][pipenv]:
 ```
-poetry install
+pipenv install --site-packages
+
 ```
 
 ### Run
 ```
-python app.py
+pipenv run start
 ```
 
-[poetry]: https://python-poetry.org/docs/#installation
+[pipenv]: https://github.com/pypa/pipenv
