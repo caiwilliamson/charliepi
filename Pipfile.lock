@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e77fc70949c9f4bb839f057e15177a734f5f4366e2a3c9cc9395106c4299aac0"
+            "sha256": "0ee85e11f4ab96022121d3b4d46a5d8812f6ea7e116f0d0734142d0cc889825c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -123,6 +123,13 @@
             "markers": "python_version >= '3.7'",
             "version": "==2.1.3"
         },
+        "peewee": {
+            "hashes": [
+                "sha256:3a56967f28a43ca7a4287f4803752aeeb1a57a08dee2e839b99868181dfb5df8"
+            ],
+            "index": "pypi",
+            "version": "==3.17.0"
+        },
         "rpi-gpio": {
             "hashes": [
                 "sha256:15311d3b063b71dee738cd26570effc9985a952454d162937c34e08c0fc99902",
@@ -136,6 +143,15 @@
             ],
             "index": "pypi",
             "version": "==0.7.1"
+        },
+        "schedule": {
+            "hashes": [
+                "sha256:14cdeb083a596aa1de6dc77639a1b2ac8bf6eaafa82b1c9279d3612823063d01",
+                "sha256:843bc0538b99c93f02b8b50e3e39886c06f2d003b24f48e1aa4cadfa3f341279"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7'",
+            "version": "==1.2.1"
         },
         "smbus": {
             "hashes": [

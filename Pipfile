@@ -7,6 +7,8 @@ name = "pypi"
 flask = "*"
 smbus = "*"
 rpi-gpio = "*"
+schedule = "*"
+peewee = "*"
 
 [dev-packages]
 

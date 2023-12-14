@@ -20,6 +20,28 @@
         <h3>Camera Stream</h3>
         <img src="{{ url_for('video_feed') }}" width="640" height="480" />
 
+        <h3>Latest Sensor Readings</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in past_sensor_data %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.temperature }}</td>
+                        <td>{{ item.humidity }}</td>
+                        <td>{{ item.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
         <script>
             function updateSensorValues() {
                 fetch('/get_sensor_data')

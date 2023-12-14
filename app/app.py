@@ -1,4 +1,7 @@
 from flask import Flask, render_template, jsonify, Response
+from peewee import SqliteDatabase
+
+from sensor_data import SensorData
 from camera import setup_camera, stream_camera, close_camera
 from sht_30 import read_sht_30
 from led import LED
@@ -10,7 +13,20 @@ picam2, output = setup_camera()
 
 @app.route('/')
 def index():
-    return render_template('index.html', sensor_data=read_sht_30())
+    sensor_data = read_sht_30()
+    past_sensor_data = (
+        SensorData
+        .select()
+        .limit(10)
+        .order_by(SensorData.timestamp.desc())
+        .dicts()
+    )
+
+    return render_template(
+        'index.html',
+        sensor_data=sensor_data,
+        past_sensor_data=past_sensor_data
+    )
 
 @app.route('/get_sensor_data')
 def get_sensor_data():
@@ -23,7 +39,10 @@ def toggle_ir():
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(stream_camera(output), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(
+        stream_camera(output),
+        mimetype='multipart/x-mixed-replace; boundary=frame'
+    )
 
 if __name__ == '__main__':
     try:
