@@ -14,4 +14,4 @@ rpi-gpio = "*"
 python_version = "3.11"
 
 [scripts]
-start = "python app.py"
+start = "python app/app.py"
