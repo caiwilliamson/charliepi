@@ -3,7 +3,7 @@ from datetime import datetime
 
 db = SqliteDatabase('charliepi_web.db')
 
-class SensorData(Model):
+class Sht30Reading(Model):
     temperature = FloatField()
     humidity = FloatField()
     timestamp = DateTimeField(default=datetime.now)
@@ -12,4 +12,4 @@ class SensorData(Model):
         database = db
 
 db.connect()
-db.create_tables([SensorData])
+db.create_tables([Sht30Reading])

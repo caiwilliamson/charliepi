@@ -1,7 +1,7 @@
-import smbus
 import time
+import smbus
 
-class SHT30:
+class Sht30:
     def __init__(self):
         self._bus = smbus.SMBus(1)
 

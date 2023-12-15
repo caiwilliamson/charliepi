@@ -1,6 +1,4 @@
-# Charlie Pi Web 🐈‍⬛
-
-Web dashboard for Charlie Pi
+# Charlie Pi 🐈‍⬛🥧
 
 ### Install
 With [pipenv][pipenv]:
