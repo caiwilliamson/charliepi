@@ -1,10 +1,12 @@
 import time
 import schedule
 from sensor_data import SensorData
-from sht_30 import read_sht_30
+from sht_30 import SHT30
+
+sht_30 = SHT30()
 
 def record_sensor_data():
-    sensor_data = read_sht_30()
+    sensor_data = sht_30.read()
     temperature = sensor_data['temperature']
     humidity = sensor_data['humidity']
 
