@@ -1,8 +1,8 @@
 import io
 import threading
 from picamera2 import Picamera2
-from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
+from picamera2.encoders import JpegEncoder
 
 class Camera:
     def __init__(self):

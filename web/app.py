@@ -1,16 +1,18 @@
-from flask import Flask, render_template, jsonify, Response
+import os
+import sys
 from peewee import SqliteDatabase
+from flask import Flask, render_template, jsonify, Response
 
-from lib.models import Sht30Reading
-from lib.camera import Camera
-from lib.sht30 import Sht30
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from lib.led import LED
+from lib.sht30 import Sht30
+from lib.camera import Camera
+from lib.models import Sht30Reading
 
 app = Flask(__name__)
-
 camera = Camera()
 camera.start()
-
 sht30 = Sht30()
 ir_led = LED(pin=23)
 

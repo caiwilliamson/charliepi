@@ -1,7 +1,12 @@
+import os
+import sys
 import time
 import schedule
-from lib.models import Sht30Reading
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from lib.sht30 import Sht30
+from lib.models import Sht30Reading
 
 sht30 = Sht30()
 
@@ -16,8 +21,9 @@ def record_sht30_reading():
     else:
         print("Failed to read sensor data.")
 
-schedule.every(3).seconds.do(record_sht30_reading)
+if __name__ == '__main__':
+    schedule.every(3).seconds.do(record_sht30_reading)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
