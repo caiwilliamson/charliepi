@@ -1,10 +1,5 @@
-import os
-import sys
 from peewee import SqliteDatabase
 from flask import Flask, render_template, jsonify, Response
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 from lib.led import LED
 from lib.sht30 import Sht30
 from lib.camera import Camera

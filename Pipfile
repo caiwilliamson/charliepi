@@ -16,5 +16,6 @@ peewee = "*"
 python_version = "3.11"
 
 [scripts]
-web = "python web/app.py"
-install_daemons = "python daemons/install.py"
+main = "python main.py"
+sht30_recorder = "python src/sht30_recorder.py"
+web_app = "python src/web_app.py"

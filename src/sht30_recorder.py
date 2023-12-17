@@ -1,10 +1,5 @@
-import os
-import sys
 import time
 import schedule
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 from lib.sht30 import Sht30
 from lib.models import Sht30Reading
 
