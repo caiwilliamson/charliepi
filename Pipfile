@@ -9,6 +9,7 @@ smbus = "*"
 rpi-gpio = "*"
 schedule = "*"
 peewee = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
