@@ -5,12 +5,12 @@ from src.lib.daemonize import Daemonize
 
 if __name__ == '__main__':
     Daemonize(
-        file_path=os.path.join(ROOT_DIR, "src/sht30_recorder.py"),
+        python_module_name="src.sht30_recorder",
         service_name="sht30_recorder",
-        service_description="Record temperature and humidity readings from an SHT30 sensor"
+        service_description="Record temperature and humidity readings from SHT30 sensor"
     )
     Daemonize(
-        file_path=os.path.join(ROOT_DIR, "src/web_app.py"),
-        service_name="charlie_pi_web",
-        service_description="Charlie Pi web app"
+        python_module_name="src.web_app",
+        service_name="web_app",
+        service_description="Charlie Pi web application"
     )

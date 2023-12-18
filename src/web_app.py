@@ -1,9 +1,9 @@
 from peewee import SqliteDatabase
 from flask import Flask, render_template, jsonify, Response
-from lib.led import LED
-from lib.sht30 import Sht30
-from lib.camera import Camera
-from lib.models import Sht30Reading
+from src.lib.led import LED
+from src.lib.sht30 import Sht30
+from src.lib.camera import Camera
+from src.lib.models import Sht30Reading
 
 app = Flask(__name__)
 camera = Camera()

@@ -21,20 +21,19 @@ WantedBy=multi-user.target"""
 
     def __init__(
         self,
-        file_path=None,
+        python_module_name=None,
         service_name=None,
         service_description="No description provided"
     ):
-        file_name_with_extension = os.path.basename(file_path)
-        file_name_without_extension = os.path.splitext(file_name_with_extension)[0]
-
-        self.file_path = file_path
-        self.service_name = service_name or file_name_without_extension
-        self.service_file = Daemonize.SERVICE_FILE.format(service_name=self.service_name)
+        self.python_module_name = python_module_name
+        self.service_name = service_name
+        self.service_file = self.SERVICE_FILE.format(service_name=self.service_name)
         self.service_description = service_description
 
-        if self.file_path is not None:
-            self.daemonize()
+        if self.python_module_name is None or self.service_name is None:
+            raise ValueError("python_module_name and service_name are required arguments")
+
+        self.daemonize()
 
     def is_service_installed(self):
         return os.path.exists(self.service_file)
@@ -64,7 +63,7 @@ WantedBy=multi-user.target"""
     def generate_service_file_content(self):
         pipenv_path = self.get_pipenv_path()
 
-        exec_start = f"{pipenv_path} run python {self.file_path}"
+        exec_start = f"{pipenv_path} run python -m {self.python_module_name}"
         working_directory = ROOT_DIR
         user = os.getenv('USER')
 

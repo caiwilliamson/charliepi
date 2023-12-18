@@ -17,6 +17,6 @@ python-dotenv = "*"
 python_version = "3.11"
 
 [scripts]
-main = "python main.py"
-sht30_recorder = "python src/sht30_recorder.py"
-web_app = "python src/web_app.py"
+main = "python -m main"
+sht30_recorder = "python -m src.sht30_recorder"
+web_app = "python -m src.web_app"
