@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 
+
 class LED:
     def __init__(self, pin=None):
         self.pin = pin

@@ -1,8 +1,10 @@
 import io
 import threading
+
 from picamera2 import Picamera2
-from picamera2.outputs import FileOutput
 from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
+
 
 class Camera:
     def __init__(self):
@@ -10,7 +12,9 @@ class Camera:
         self._output = StreamingOutput()
 
     def start(self):
-        self._picam2.configure(self._picam2.create_video_configuration(main={"size": (640, 480)}))
+        self._picam2.configure(
+            self._picam2.create_video_configuration(main={"size": (640, 480)})
+        )
         self._picam2.start_recording(JpegEncoder(), FileOutput(self._output))
 
     def stream(self):
@@ -18,16 +22,14 @@ class Camera:
             with self._output.condition:
                 self._output.condition.wait()
                 frame = self._output.frame
-            yield (
-                b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n'
-            )
+            yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 
     def stream_response(self):
-        return self.stream(), 'multipart/x-mixed-replace; boundary=frame'
+        return self.stream(), "multipart/x-mixed-replace; boundary=frame"
 
     def stop(self):
         self._picam2.stop_recording()
+
 
 class StreamingOutput(io.BufferedIOBase):
     def __init__(self):

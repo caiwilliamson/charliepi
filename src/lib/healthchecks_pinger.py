@@ -1,26 +1,29 @@
 import logging
+
 import requests
-from urllib3.util import Retry
-from requests.adapters import HTTPAdapter
 from dotenv import dotenv_values
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
+
 from src.lib.setup_logging import setup_logging
 
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
 
 setup_logging("healthchecks")
 
+
 class HealthchecksMissingPingKeyError(Exception):
     pass
+
 
 class HealthchecksMissingSlugError(Exception):
     pass
 
+
 class HealthchecksPinger:
     PING_DOMAIN = "https://hc-ping.com"
     MISSING_SLUG_ERROR = "Can't ping Healthchecks because slug is not defined"
-    MISSING_PING_KEY_ERROR = (
-        "Can't ping Healthchecks because HEALTHCHECKS_PING_KEY is missing from the environment!"
-    )
+    MISSING_PING_KEY_ERROR = "Can't ping Healthchecks because HEALTHCHECKS_PING_KEY is missing from the environment!"
 
     def __init__(self, slug=None):
         config = dotenv_values(".env")
@@ -30,12 +33,12 @@ class HealthchecksPinger:
         self._http_session = None
 
         if self._slug is None:
-            logging.error(MISSING_SLUG_ERROR)
-            raise HealthchecksMissingSlugError(MISSING_SLUG_ERROR)
+            logging.error(self.MISSING_SLUG_ERROR)
+            raise HealthchecksMissingSlugError(self.MISSING_SLUG_ERROR)
 
         if self._ping_key is None:
-            logging.error(MISSING_PING_KEY_ERROR)
-            raise HealthchecksMissingPingKeyError(MISSING_PING_KEY_ERROR)
+            logging.error(self.MISSING_PING_KEY_ERROR)
+            raise HealthchecksMissingPingKeyError(self.MISSING_PING_KEY_ERROR)
 
     def ping(self):
         url = f"{self.PING_DOMAIN}/{self._ping_key}/{self._slug}"

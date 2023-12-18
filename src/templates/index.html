@@ -9,10 +9,10 @@
         <h1>Charlie Pi</h1>
 
         <h3>Temperature</h3>
-        <p id="temperature">{{ sensor_data['temperature'] }}°C</p>
+        <p id="temperature">{{ sensor_data["temperature"] }}°C</p>
 
         <h3>Humidity</h3>
-        <p id="humidity">{{ sensor_data['humidity'] }}%H</p>
+        <p id="humidity">{{ sensor_data["humidity"] }}%H</p>
 
         <h3>Infrared</h3>
         <button id="toggle-ir" type="button">Toggle IR</button>
@@ -44,30 +44,30 @@
 
         <script>
             function updateSensorValues() {
-                fetch('/get_sensor_data')
+                fetch("/get_sensor_data")
                     .then(response => response.json())
                     .then(data => {
-                        document.getElementById('temperature').innerText = data.temperature + "°C";
-                        document.getElementById('humidity').innerText = data.humidity + "%H";
+                        document.getElementById("temperature").innerText = data.temperature + "°C";
+                        document.getElementById("humidity").innerText = data.humidity + "%H";
                     })
                     .catch(error => {
-                        console.error('Error fetching sensor data:', error);
+                        console.error("Error fetching sensor data:", error);
                     });
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener("DOMContentLoaded", function() {
                 // Update sensor values
                 setInterval(updateSensorValues, 5000);
 
                 // Toggle IR LED
-                document.getElementById('toggle-ir').addEventListener('click', function() {
+                document.getElementById("toggle-ir").addEventListener("click", function() {
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/toggle_ir', true);
+                    xhr.open("POST", "/toggle_ir", true);
                     xhr.onreadystatechange = function() {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             console.log(xhr.responseText);
                         } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                            console.error('Error:', xhr.status, xhr.statusText);
+                            console.error("Error:", xhr.status, xhr.statusText);
                         }
                     };
                     xhr.send();
