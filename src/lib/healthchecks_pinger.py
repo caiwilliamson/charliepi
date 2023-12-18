@@ -12,18 +12,12 @@ requests.packages.urllib3.util.connection.HAS_IPV6 = False
 setup_logging("healthchecks")
 
 
-class HealthchecksMissingPingKeyError(Exception):
-    pass
-
-
-class HealthchecksMissingSlugError(Exception):
-    pass
-
-
 class HealthchecksPinger:
-    PING_DOMAIN = "https://hc-ping.com"
-    MISSING_SLUG_ERROR = "Can't ping Healthchecks because slug is not defined"
-    MISSING_PING_KEY_ERROR = "Can't ping Healthchecks because HEALTHCHECKS_PING_KEY is missing from the environment!"
+    _PING_DOMAIN = "https://hc-ping.com"
+    _MISSING_SLUG_ERROR = "Can't ping healthchecks.io because slug is not defined"
+    _MISSING_PING_KEY_ERROR = (
+        "Can't ping healthchecks.io because HEALTHCHECKS_PING_KEY is not defined"
+    )
 
     def __init__(self, slug=None):
         config = dotenv_values(".env")
@@ -32,23 +26,23 @@ class HealthchecksPinger:
         self._ping_key = config.get("HEALTHCHECKS_PING_KEY", None)
         self._http_session = None
 
+    def ping(self):
         if self._slug is None:
-            logging.error(self.MISSING_SLUG_ERROR)
-            raise HealthchecksMissingSlugError(self.MISSING_SLUG_ERROR)
+            logging.error(self._MISSING_SLUG_ERROR)
+            return
 
         if self._ping_key is None:
-            logging.error(self.MISSING_PING_KEY_ERROR)
-            raise HealthchecksMissingPingKeyError(self.MISSING_PING_KEY_ERROR)
+            logging.error(self._MISSING_PING_KEY_ERROR)
+            return
 
-    def ping(self):
-        url = f"{self.PING_DOMAIN}/{self._ping_key}/{self._slug}"
+        url = f"{self._PING_DOMAIN}/{self._ping_key}/{self._slug}"
         http_session = self._create_http_session()
 
         try:
             response = http_session.get(url, timeout=10)
-            logging.info(f"Pinged Healthchecks. Response: {response.text}")
+            logging.info(f"Successfully pinged healthchecks.io: {response.text}")
         except requests.RequestException as e:
-            logging.error(f"Failed to ping Healthchecks.io: {e}")
+            logging.error(f"Failed to ping healthchecks.io: {e}")
 
     def _create_http_session(self):
         if self._http_session is None:
