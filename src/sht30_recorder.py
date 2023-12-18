@@ -1,7 +1,9 @@
 import time
 import schedule
-from lib.sht30 import Sht30
-from lib.models import Sht30Reading
+import threading
+from src.lib.sht30 import Sht30
+from src.lib.models import Sht30Reading
+from src.lib.healthchecks_pinger import HealthchecksPinger
 
 sht30 = Sht30()
 
@@ -16,8 +18,15 @@ def record_sht30_reading():
     else:
         print("Failed to read sensor data.")
 
+def run_threaded(job_func):
+    job_thread = threading.Thread(target=job_func)
+    job_thread.start()
+
 if __name__ == '__main__':
-    schedule.every(3).seconds.do(record_sht30_reading)
+    healthchecks_pinger = HealthchecksPinger(slug="sht30-recorder")
+
+    schedule.every(2).minutes.at(":00").do(run_threaded, healthchecks_pinger.ping)
+    schedule.every().minute.at(":00").do(run_threaded, record_sht30_reading)
 
     while True:
         schedule.run_pending()
