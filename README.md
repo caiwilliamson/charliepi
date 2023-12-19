@@ -6,6 +6,11 @@ With [pipenv][pipenv]:
 pipenv install --site-packages
 ```
 
+Add a file named `.env` in the project root with the following credentials:
+```
+HEALTHCHECKS_PING_KEY=<your_healthchecks_ping_key>
+```
+
 ### Run
 The following command will install and run all processes as systemd daemons:
 ```
