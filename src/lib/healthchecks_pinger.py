@@ -5,11 +5,7 @@ from dotenv import dotenv_values
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
-from src.lib.setup_logging import setup_logging
-
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
-
-setup_logging("healthchecks")
 
 
 class HealthchecksPinger:

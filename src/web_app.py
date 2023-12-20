@@ -1,9 +1,17 @@
+import time
+
+import schedule
 from flask import Flask, Response, jsonify, render_template
 
 from src.lib.camera import Camera
+from src.lib.healthchecks_pinger import HealthchecksPinger
 from src.lib.led import LED
 from src.lib.models import Sht30Reading
+from src.lib.run_threaded import run_threaded
+from src.lib.setup_logging import setup_logging
 from src.lib.sht30 import Sht30
+
+setup_logging("web_app")
 
 app = Flask(__name__)
 camera = Camera()
@@ -41,8 +49,19 @@ def video_feed():
     return Response(stream, mimetype=mimetype)
 
 
+def run_scheduled_tasks():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
 if __name__ == "__main__":
     try:
+        healthchecks_pinger = HealthchecksPinger(slug="web-app")
+        schedule.every(2).minutes.do(run_threaded, healthchecks_pinger.ping)
+
+        run_threaded(run_scheduled_tasks)
+
         app.run(host="0.0.0.0", port=5000, debug=False, threaded=True)
     finally:
         camera.stop()
