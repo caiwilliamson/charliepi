@@ -1,5 +1,6 @@
 import logging
 import os
+from logging.handlers import RotatingFileHandler
 
 from definitions import ROOT_DIR_NAME
 
@@ -14,5 +15,8 @@ def setup_logging(file_name):
     logging.basicConfig(
         level=logging.DEBUG,
         format="%(asctime)s - [%(levelname)s] - %(message)s",
-        handlers=[logging.StreamHandler(), logging.FileHandler(log_file)],
+        handlers=[
+            logging.StreamHandler(),
+            RotatingFileHandler(log_file, maxBytes=2000000, backupCount=5),
+        ],
     )
