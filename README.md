@@ -12,7 +12,7 @@ HEALTHCHECKS_PING_KEY=<your_healthchecks_ping_key>
 ```
 
 ### Run
-The following command will install and run all processes as systemd daemons:
+The following command will install and run all services as systemd daemons:
 ```
 pipenv run main
 ```
