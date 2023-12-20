@@ -12,6 +12,7 @@ class Sht30Reading(Model):
 
     class Meta:
         database = db
+        indexes = ((("timestamp",), False),)
 
 
 db.connect()
