@@ -37,4 +37,5 @@ if __name__ == "__main__":
 
     schedule.every().minute.at(":00").do(run_threaded, record_sht30_reading)
 
+    healthchecks_pinger.ping()  # First ping
     run_scheduled_tasks()

@@ -60,6 +60,7 @@ if __name__ == "__main__":
         healthchecks_pinger = HealthchecksPinger(slug="web-app")
         schedule.every(2).minutes.do(run_threaded, healthchecks_pinger.ping)
 
+        healthchecks_pinger.ping()  # First ping
         run_threaded(run_scheduled_tasks)
 
         app.run(host="0.0.0.0", port=5000, debug=False, threaded=True)
