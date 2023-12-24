@@ -17,7 +17,8 @@ app = Flask(__name__)
 camera = Camera()
 camera.start()
 sht30 = Sht30()
-ir_led = LED(pin=23)
+ir_led = LED(pin=26)
+ir_led_2 = LED(pin=11)
 
 
 @app.route("/")
@@ -40,6 +41,7 @@ def get_sensor_data():
 @app.route("/toggle_ir", methods=["POST"])
 def toggle_ir():
     ir_led.toggle()
+    ir_led_2.toggle()
     return Response(status=204)
 
 
@@ -67,3 +69,4 @@ if __name__ == "__main__":
     finally:
         camera.stop()
         ir_led.cleanup()
+        ir_led_2.cleanup()
