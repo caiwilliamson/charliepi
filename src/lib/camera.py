@@ -13,7 +13,7 @@ class Camera:
 
     def start(self):
         self._picam2.configure(
-            self._picam2.create_video_configuration(main={"size": (640, 480)})
+            self._picam2.create_video_configuration(main={"size": (1280, 960)})
         )
         self._picam2.start_recording(JpegEncoder(), FileOutput(self._output))
 
