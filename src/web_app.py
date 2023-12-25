@@ -1,3 +1,4 @@
+import subprocess
 import time
 
 import schedule
@@ -49,6 +50,10 @@ def toggle_ir():
 def video_feed():
     stream, mimetype = camera.stream_response()
     return Response(stream, mimetype=mimetype)
+
+
+def power_off():
+    subprocess.run(["sudo", "poweroff"])
 
 
 def run_scheduled_tasks():
